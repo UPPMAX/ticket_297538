@@ -14,51 +14,27 @@ From: condaforge/miniforge3
     # Create and activate virtual python environment
     conda create -n dna python=3.8
 
-    # Must be done before a conda create
-    # Error: CondaError: Run 'conda init' before 'conda activate'                                                                                                                                   
-    # Use 'bash' at the end, from https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run 
-
     conda init bash
 
-    # From https://stackoverflow.com/a/78456992
-    # Error: 'source: not found'
-    # source activate base
-    #./activate base
-    # Error: './activate: not found'
-    # . activate base
-
-
-    # From https://geniac.readthedocs.io/en/latest/conda.html#example1
     echo -e "\nconda activate dna" >> ~/.bashrc
     echo -e "\nconda activate dna" >> /root/bashrc
-    # Gives error
-    # conda activate dna
 
-    # install triton from source
-    cd /opt
-    git clone https://github.com/openai/triton.git
-    cd triton/python
-
-    # Fixes 'No CMAKE_C_COMPILER could be found'
-    # pip install gcc
-    
-    # apt-cache search gcc
-    # apt search gcc
-    # apt install gcc-10-base
-    # apt-get install "g++"
-    # apt-get install gcc
-    # gcc --version
-    # g++ --version
-    # cd / ; find . | grep "g\\+\\+"
-    # cd / ; find . | grep "gcc"
+    pip install triton
 
     pip install cmake
+
+    echo "DEBUG 1"
+
     pip install -e .
 
-    # install required packages
+    echo "DEBUG 2"
+
     cd /opt
     git clone https://github.com/MAGICS-LAB/DNABERT_2
     cd DNABERT_2
+
+    echo "DEBUG 713"
+
     python3 -m pip install -r requirements.txt
 
 %runscript
