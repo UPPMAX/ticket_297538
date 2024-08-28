@@ -2,8 +2,47 @@
 
 Notes for ticket 297538
 
+## Attempt 1: from documentation
+
+I start with this:
+
 ```
-sudo singularity build dnabert2_with_triton.sif dnabert2_with_triton.def 
+Bootstrap: docker
+From: condaforge/miniforge3
+
+%post
+    # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
+    echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+
+    # Must be done before a conda create
+    conda init
+
+    # create and activate virtual python environment
+    conda create -n dna python=3.8
+    conda activate dna
+
+    # (optional if you would like to use flash attention)
+    # install triton from source
+    cd /opt
+    git clone https://github.com/openai/triton.git
+    cd triton/python
+    pip install cmake; # build-time dependency
+    pip install -e .
+
+    # install required packages
+    cd /opt
+    git clone https://github.com/MAGICS-LAB/DNABERT_2
+    cd DNABERT_2
+    python3 -m pip install -r requirements.txt
+
+%runscript
+python3 "$@"
+```
+
+Build:
+
+```
+./create.sh
 ```
 
 Gives:
@@ -138,3 +177,6 @@ Executing transaction: done
 CondaError: Run 'conda init' before 'conda activate'                                                                                                                                   
                                                                                                                                                                                        
 FATAL:   While performing build: while running engine: exit status 1       
+```
+
+Hmmm, how to do a `conda init` in a Singularity container?
