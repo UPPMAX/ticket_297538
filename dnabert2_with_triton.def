@@ -40,8 +40,17 @@ From: condaforge/miniforge3
     cd triton/python
 
     # Fixes 'No CMAKE_C_COMPILER could be found'
-    #pip install gcc
-    apt-get install gcc
+    # pip install gcc
+    
+    # apt-cache search gcc
+    # apt search gcc
+    # apt install gcc-10-base
+    # apt-get install "g++"
+    # apt-get install gcc
+    # gcc --version
+    # g++ --version
+    # cd / ; find . | grep "g\\+\\+"
+    # cd / ; find . | grep "gcc"
 
     pip install cmake
     pip install -e .
