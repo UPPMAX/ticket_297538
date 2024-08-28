@@ -1,16 +1,38 @@
 Bootstrap: docker
 From: condaforge/miniforge3
 
+# From https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run
+%environment
+    export LC_ALL=en_US.utf-8
+    export LANG=en_US.utf-8
+    export BASH_ENV=/root/bashrc
+
 %post
     # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
-    echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+    # echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+
+    # Create and activate virtual python environment
+    conda create -n dna python=3.8
 
     # Must be done before a conda create
-    conda init
+    # Error: CondaError: Run 'conda init' before 'conda activate'                                                                                                                                   
+    # Use 'bash' at the end, from https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run 
 
-    # create and activate virtual python environment
-    conda create -n dna python=3.8
-    conda activate dna
+    conda init bash
+
+    # From https://stackoverflow.com/a/78456992
+    # Error: 'source: not found'
+    # source activate base
+    #./activate base
+    # Error: './activate: not found'
+    # . activate base
+
+
+    # From https://geniac.readthedocs.io/en/latest/conda.html#example1
+    echo -e "\nconda activate dna" >> ~/.bashrc
+    echo -e "\nconda activate dna" >> /root/bashrc
+    # Gives error
+    # conda activate dna
 
     # (optional if you would like to use flash attention)
     # install triton from source
