@@ -34,12 +34,16 @@ From: condaforge/miniforge3
     # Gives error
     # conda activate dna
 
-    # (optional if you would like to use flash attention)
     # install triton from source
     cd /opt
     git clone https://github.com/openai/triton.git
     cd triton/python
-    pip install cmake; # build-time dependency
+
+    # Fixes 'No CMAKE_C_COMPILER could be found'
+    #pip install gcc
+    apt-get install gcc
+
+    pip install cmake
     pip install -e .
 
     # install required packages
