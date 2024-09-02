@@ -1,0 +1,42 @@
+Bootstrap: docker
+From: dustynv/openai-triton:r36.3.0
+
+# From https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run
+%environment
+    export LC_ALL=en_US.utf-8
+    export LANG=en_US.utf-8
+    export BASH_ENV=/root/bashrc
+
+%post
+    # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
+    # echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+
+    # Create and activate virtual python environment
+    conda create -n dna python=3.8
+
+    conda init bash
+
+    echo -e "\nconda activate dna" >> ~/.bashrc
+    echo -e "\nconda activate dna" >> /root/bashrc
+
+    # Already installed (but how to check this?)
+    # pip install triton
+
+    pip install cmake
+
+    echo "DEBUG 1"
+
+    pip install -e .
+
+    echo "DEBUG 2"
+
+    cd /opt
+    git clone https://github.com/MAGICS-LAB/DNABERT_2
+    cd DNABERT_2
+
+    echo "DEBUG 713"
+
+    python3 -m pip install -r requirements.txt
+
+%runscript
+python3 "$@"
