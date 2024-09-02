@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: dustynv/openai-triton:r36.3.0
+From: rocm/oai-triton:latest
 
 # From https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run
 %environment
