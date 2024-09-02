@@ -4,8 +4,75 @@ Notes for ticket 297538
 
 ## Attempt 7: start from Docker with Triton, use rocm/oai-triton
 
-docker pull rocm/oai-triton
+No idea why this fails (beside the error message)
 
+```
+Bootstrap: docker
+From: rocm/oai-triton:latest
+
+# From https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run
+%environment
+    export LC_ALL=en_US.utf-8
+    export LANG=en_US.utf-8
+    export BASH_ENV=/root/bashrc
+
+%post
+    # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
+    # echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+
+    # Create and activate virtual python environment
+    conda create -n dna python=3.8
+
+    conda init bash
+
+    echo -e "\nconda activate dna" >> ~/.bashrc
+    echo -e "\nconda activate dna" >> /root/bashrc
+
+    # Already installed (but how to check this?)
+    # pip install triton
+
+    pip install cmake
+
+    echo "DEBUG 1"
+
+    pip install -e .
+
+    echo "DEBUG 2"
+
+    cd /opt
+    git clone https://github.com/MAGICS-LAB/DNABERT_2
+    cd DNABERT_2
+
+    echo "DEBUG 713"
+
+    python3 -m pip install -r requirements.txt
+
+%runscript
+python3 "$@"
+```
+
+```
+richel@richel-N141CU:~/GitHubs/ticket_297538$ sudo singularity build dnabert2_with_triton.def dnabert2_with_triton_7.def 
+[sudo] password for richel: 
+INFO:    Starting build...
+INFO:    Fetching OCI image...
+209.1MiB / 209.1MiB [==============================================================================================================================================] 100 % 3.3 MiB/s 0s
+27.3MiB / 27.3MiB [================================================================================================================================================] 100 % 3.3 MiB/s 0s
+2.1GiB / 2.1GiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+292.2MiB / 292.2MiB [==============================================================================================================================================] 100 % 3.3 MiB/s 0s
+6.1GiB / 6.1GiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+15.2MiB / 15.2MiB [================================================================================================================================================] 100 % 3.3 MiB/s 0s
+1.6GiB / 1.6GiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+1.1MiB / 1.1MiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+115.8MiB / 115.8MiB [==============================================================================================================================================] 100 % 3.3 MiB/s 0s
+2.9GiB / 2.9GiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+86.2KiB / 86.2KiB [================================================================================================================================================] 100 % 3.3 MiB/s 0s
+396.1MiB / 396.1MiB [==============================================================================================================================================] 100 % 3.3 MiB/s 0s
+97.4MiB / 97.4MiB [================================================================================================================================================] 100 % 3.3 MiB/s 0s
+1.3GiB / 1.3GiB [==================================================================================================================================================] 100 % 3.3 MiB/s 0s
+INFO:    Extracting OCI image...
+FATAL:   While performing build: packer failed to pack: while unpacking tmpfs: error unpacking rootfs: unpack entry: opt/conda/pkgs/numpy-base-1.18.5-py38h2f8d375_0/lib/python3.8/site-packages/numpy-1.18.5-py3.8.egg-info/PKG-INFO: link: no such file or directory
+```
 
 ## Attempt 6: start from Docker with Triton, use dustynv/openai-triton:r36.3.0
 

@@ -11,10 +11,16 @@ From: rocm/oai-triton:latest
     # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
     # echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
 
+    echo "DEBUG 14"
+
     # Create and activate virtual python environment
     conda create -n dna python=3.8
 
+    echo "DEBUG 19"
+
     conda init bash
+
+    echo "DEBUG 23"
 
     echo -e "\nconda activate dna" >> ~/.bashrc
     echo -e "\nconda activate dna" >> /root/bashrc
@@ -22,19 +28,21 @@ From: rocm/oai-triton:latest
     # Already installed (but how to check this?)
     # pip install triton
 
+    echo "DEBUG 31"
+
     pip install cmake
 
-    echo "DEBUG 1"
+    echo "DEBUG 35"
 
     pip install -e .
 
-    echo "DEBUG 2"
+    echo "DEBUG 39"
 
     cd /opt
     git clone https://github.com/MAGICS-LAB/DNABERT_2
     cd DNABERT_2
 
-    echo "DEBUG 713"
+    echo "DEBUG 45"
 
     python3 -m pip install -r requirements.txt
 
