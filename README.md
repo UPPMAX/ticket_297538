@@ -2,6 +2,30 @@
 
 Notes for ticket 297538
 
+## Attempt 6: start from a Docker with Triton
+
+## Attempt 5: start from a Docker with Triton
+
+From [here](https://github.com/MAGICS-LAB/DNABERT_2/issues/47#issuecomment-1849464182).
+
+From `Zhihan1996`:
+
+> The triton package is a bit tricky. If you fail to install from source, can you try pip install triton==2.0.0.dev20221103?
+
+`@Zhihan1996`, I tried this, it does not work anymore (maybe it worked in the past..?):
+
+```bash
+pip install triton==2.0.0.dev20221103
+ERROR: Could not find a version that satisfies the requirement triton==2.0.0.dev20221103 (from versions: 2.0.0, 2.1.0, 2.2.0, 2.3.0, 2.3.1, 3.0.0)
+ERROR: No matching distribution found for triton==2.0.0.dev20221103
+```
+
+With Singularity script here for reference:
+
+- [dnabert2_with_triton_5.def](dnabert2_with_triton_5.def)
+
+Shared at [this DNABERT_2 Issue](https://github.com/MAGICS-LAB/DNABERT_2/issues/47#issuecomment-2323822519).
+
 ## Attempt 4: fixing new error
 
 
