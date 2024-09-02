@@ -2,7 +2,79 @@
 
 Notes for ticket 297538
 
-## Attempt 6: start from a Docker with Triton
+## Attempt 7: start from Docker with Triton, use rocm/oai-triton
+
+docker pull rocm/oai-triton
+
+
+## Attempt 6: start from Docker with Triton, use dustynv/openai-triton:r36.3.0
+
+```
+richel@richel-N141CU:~/GitHubs/ticket_297538$ sudo singularity build dnabert2_with_triton.def dnabert2_with_triton_6.def 
+INFO:    Starting build...
+INFO:    Fetching OCI image...
+1.5GiB / 1.5GiB [==================================================================================================================================================] 100 % 4.8 MiB/s 0s
+114.4KiB / 114.4KiB [==============================================================================================================================================] 100 % 4.8 MiB/s 0s
+26.1MiB / 26.1MiB [================================================================================================================================================] 100 % 4.8 MiB/s 0s
+214.6MiB / 214.6MiB [==============================================================================================================================================] 100 % 4.8 MiB/s 0s
+3.2GiB / 3.2GiB [==================================================================================================================================================] 100 % 4.8 MiB/s 0s
+20.8MiB / 20.8MiB [================================================================================================================================================] 100 % 4.8 MiB/s 0s
+13.5MiB / 13.5MiB [================================================================================================================================================] 100 % 4.8 MiB/s 0s
+16.3MiB / 16.3MiB [================================================================================================================================================] 100 % 4.8 MiB/s 0s
+24.7MiB / 24.7MiB [================================================================================================================================================] 100 % 4.8 MiB/s 0s
+315.1MiB / 315.1MiB [==============================================================================================================================================] 100 % 4.8 MiB/s 0s
+211.0MiB / 211.0MiB [==============================================================================================================================================] 100 % 4.8 MiB/s 0s
+INFO:    Extracting OCI image...
+INFO:    Inserting Singularity configuration...
+INFO:    Running post scriptlet
+FATAL:   image targets 'arm64', cannot run on 'amd64'
+FATAL:   While performing build: while running engine: exit status 255
+```
+
+```
+Bootstrap: docker
+From: dustynv/openai-triton:r36.3.0
+
+# From https://geniac.readthedocs.io/en/latest/conda.html#example2-activate-the-conda-environment-at-startup-with-singularity-exec-or-run
+%environment
+    export LC_ALL=en_US.utf-8
+    export LANG=en_US.utf-8
+    export BASH_ENV=/root/bashrc
+
+%post
+    # From https://github.com/brucemoran/Singularity/blob/8eb44591284ffb29056d234c47bf8b1473637805/shub/bases/recipe.CentOs7-R_3.5.2#L21
+    # echo 'export LANG=en_US.UTF-8 LANGUAGE=C LC_ALL=C LC_CTYPE=C LC_COLLATE=C  LC_TIME=C LC_MONETARY=C LC_PAPER=C LC_MEASUREMENT=C' >> $SINGULARITY_ENVIRONMENT
+
+    # Create and activate virtual python environment
+    conda create -n dna python=3.8
+
+    conda init bash
+
+    echo -e "\nconda activate dna" >> ~/.bashrc
+    echo -e "\nconda activate dna" >> /root/bashrc
+
+    # Already installed (but how to check this?)
+    # pip install triton
+
+    pip install cmake
+
+    echo "DEBUG 1"
+
+    pip install -e .
+
+    echo "DEBUG 2"
+
+    cd /opt
+    git clone https://github.com/MAGICS-LAB/DNABERT_2
+    cd DNABERT_2
+
+    echo "DEBUG 713"
+
+    python3 -m pip install -r requirements.txt
+
+%runscript
+python3 "$@"
+```
 
 ## Attempt 5: start from a Docker with Triton
 
