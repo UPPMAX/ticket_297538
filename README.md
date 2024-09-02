@@ -1,6 +1,11 @@
 # ticket_297538
 
-Notes for ticket 297538
+Notes for ticket 297538.
+
+Solution at
+[https://github.com/richelbilderbeek/create_dnabert2_with_triton_singularity_container](https://github.com/richelbilderbeek/create_dnabert2_with_triton_singularity_container)
+
+## Notes
 
 How to create a Singularity container with DNABERT2 and Triton:
 
