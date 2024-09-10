@@ -42,6 +42,17 @@ I predict this is where the error is introduced.
 
 - Solution: uninstall DNABERT2, then install again
 
+```
+richel@r480 ticket_297538]$ ./uninstall_and_install_and_run.sh 
+WARNING: Skipping DNABERT-2 as it is not installed.
+
+[richel@r480 ticket_297538]$ ./uninstall_and_install_and_run.sh 
+WARNING: Skipping DNABERT2 as it is not installed.
+```
+
+Hmmm, what is the name of the module???
+
+
 ### [FAILS] 2f: Run all from home folder
 
 ```
