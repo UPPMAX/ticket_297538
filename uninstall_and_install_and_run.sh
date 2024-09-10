@@ -1,7 +1,7 @@
 #!/bin/bash
 module load python/3.8.7
 
-pip remove DNABERT_2
+pip uninstall DNABERT_2
 exit
 
 pip install triton
