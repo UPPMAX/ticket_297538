@@ -13,6 +13,35 @@ Run <install_and_run.sh>:
 ./install_and_run.sh
 ```
 
+## 2g 
+
+- Hypothesis: taking a look at attempt `2z` (the one before `2a`), I notice that files are downloaded:
+
+``
+[...]
+configuration_bert.py: 100%|████████████████| 1.01k/1.01k [00:00<00:00, 429kB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- configuration_bert.py
+[...]
+bert_layers.py: 100%|██████████████████████| 40.7k/40.7k [00:00<00:00, 16.6MB/s]
+flash_attn_triton.py: 100%|████████████████| 42.7k/42.7k [00:00<00:00, 17.0MB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- flash_attn_triton.py
+[...]
+bert_padding.py: 100%|█████████████████████| 6.10k/6.10k [00:00<00:00, 2.62MB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- bert_padding.py
+[...]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- bert_layers.py
+- flash_attn_triton.py
+- bert_padding.py
+```
+
+I predict this is where the error is introduced. 
+
+- Solution: uninstall DNABERT2, then install again
+
 ### [FAILS] 2f: Run all from home folder
 
 ```
@@ -540,7 +569,7 @@ AssertionError
 ```
 
 
-### Install to `/proj/staff/richel` fails, attempt 1?
+### [FAILS] Attempt 2a: Install to `/proj/staff/richel`
 
 ```
 #!/bin/bash
@@ -706,7 +735,9 @@ AssertionError
 ```
 
 
-### Installing to home folder works
+### [FAILS] Attempt 2z: Installing to home folder works
+
+(use 2z to indicate 'before 2a')
 
 ```
 [richel@r480 ticket_297538]$ ./install_and_run.sh 
