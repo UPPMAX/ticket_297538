@@ -13,6 +13,9 @@ Run <install_and_run.sh>:
 ./install_and_run.sh
 ```
 
+### [?] 2f: Run all from home folder
+
+
 ### [FAILS] 2e: Run from `DNABERT_2` folder
 
 ```
