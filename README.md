@@ -17,7 +17,7 @@ Run <install_and_run.sh>:
 
 - Hypothesis: taking a look at attempt `2z` (the one before `2a`), I notice that files are downloaded:
 
-``
+```
 [...]
 configuration_bert.py: 100%|████████████████| 1.01k/1.01k [00:00<00:00, 429kB/s]
 A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
