@@ -214,6 +214,60 @@ You should consider upgrading via the '/sw/comp/python/3.8.7_rackham/bin/python3
 python3: can't open file 'example_dnabert2_with_triton.py': [Errno 2] No such file or directory
 ```
 
+Then with `python` it seems to work:
+
+```
+[richel@r480 ticket_297538]$ ./run.sh 
+Hello world
+/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/file_download.py:1150: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+tokenizer_config.json: 100%|███████████████████| 158/158 [00:00<00:00, 12.5kB/s]
+tokenizer.json: 100%|████████████████████████| 168k/168k [00:00<00:00, 12.1MB/s]
+config.json: 100%|██████████████████████████████| 904/904 [00:00<00:00, 179kB/s]
+configuration_bert.py: 100%|████████████████| 1.01k/1.01k [00:00<00:00, 429kB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- configuration_bert.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+bert_layers.py: 100%|██████████████████████| 40.7k/40.7k [00:00<00:00, 16.6MB/s]
+flash_attn_triton.py: 100%|████████████████| 42.7k/42.7k [00:00<00:00, 17.0MB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- flash_attn_triton.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+bert_padding.py: 100%|█████████████████████| 6.10k/6.10k [00:00<00:00, 2.62MB/s]
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- bert_padding.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+A new version of the following files was downloaded from https://huggingface.co/zhihan1996/DNABERT-2-117M:
+- bert_layers.py
+- flash_attn_triton.py
+- bert_padding.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/file_download.py:1150: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+pytorch_model.bin: 100%|██████████████████████| 468M/468M [00:04<00:00, 116MB/s]
+Traceback (most recent call last):
+  File "example_dnabert2_with_triton.py", line 7, in <module>
+    model = AutoModel.from_pretrained("zhihan1996/DNABERT-2-117M", trust_remote_code=True)
+  File "/home/richel/.local/lib/python3.8/site-packages/transformers/models/auto/auto_factory.py", line 462, in from_pretrained
+    return model_class.from_pretrained(
+  File "/home/richel/.local/lib/python3.8/site-packages/transformers/modeling_utils.py", line 2452, in from_pretrained
+    resolved_archive_file = cached_file(
+  File "/home/richel/.local/lib/python3.8/site-packages/transformers/utils/hub.py", line 417, in cached_file
+    resolved_file = hf_hub_download(
+  File "/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/utils/_deprecation.py", line 101, in inner_f
+    return f(*args, **kwargs)
+  File "/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1240, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1389, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/home/richel/.local/lib/python3.8/site-packages/huggingface_hub/file_download.py", line 1915, in _download_to_tmp_and_move
+    http_get(
+OSError: [Errno 122] Disk quota exceeded
+```
+
+
 ## [FAILS] Approach 1: Singularity
 
 

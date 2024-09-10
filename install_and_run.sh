@@ -4,7 +4,7 @@ pip install triton
 pip install cmake
 
 # Folder where DNABERT2 will be installed in
-DNABERT_2_SUPERFOLDER=/home/richel
+DNABERT_2_SUPERFOLDER=/proj/staff/richel
 
 cd "$(DNABERT_2_SUPERFOLDER)"
 git clone https://github.com/MAGICS-LAB/DNABERT_2
