@@ -17,6 +17,7 @@ Scripts used:
 
 - [install_on_rackham.sh](https://github.com/richelbilderbeek/create_dnabert2_singularity_container/blob/master/install_on_rackham.sh)
 - [run_on_rackham.sh](https://github.com/richelbilderbeek/create_dnabert2_singularity_container/blob/master/run_on_rackham.sh)
+- [example_dnabert2_with_triton.py](https://github.com/richelbilderbeek/create_dnabert2_singularity_container/blob/master/example_dnabert2_with_triton.py) (should be renamed to just `example.py`)
 
 Submit install:
 
@@ -145,6 +146,7 @@ Here are the scripts used:
 
 - [install_on_snowy.sh](https://github.com/richelbilderbeek/create_dnabert2_with_triton_singularity_container/blob/master/install_on_snowy.sh)
 - [run_on_snowy.sh](https://github.com/richelbilderbeek/create_dnabert2_with_triton_singularity_container/blob/master/run_on_snowy.sh)
+- [example_dnabert2_with_triton.py](https://github.com/richelbilderbeek/create_dnabert2_with_triton_singularity_container/blob/master/example_dnabert2_with_triton.py) (should be renamed to just `example.py`)
 
 Here is the proof:
 
